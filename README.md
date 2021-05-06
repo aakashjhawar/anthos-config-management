@@ -22,26 +22,6 @@ For more information on Anthos Config Management, please reference the
 A single cluster example showing several features of Anthos Config Management
 working together
 
-### [Hello, Namespace!](hello-namespace/)
-
-A simple example to generalize how to define and enforce configuration
-
-### [Locality-Specific Policy](locality-specific-policy/)
-
-Configure policy to apply only to resources in specific regions
-
-### [CI Pipeline](ci-pipeline/)
-
-Create a CloudBuild CI pipeline on a config directory
-
-### [Unstructured CI Pipeline](ci-pipeline-unstructured/)
-
-Create a CloudBuild CI pipeline on an unstructured directory
-
-### [Application Pipeline](ci-app/)
-
-Validate your application against company policies
-
 ## CRDs
 
 ### [ConfigManagement](crds/)
