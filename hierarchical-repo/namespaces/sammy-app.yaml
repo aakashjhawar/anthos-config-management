@@ -21,7 +21,6 @@ data:
 kind: ConfigMap
 metadata:
   name: sammy-app
-  namespace: default
 ---
 apiVersion: v1
 kind: Service
@@ -45,7 +44,6 @@ metadata:
   labels:
     app: sammy-app
   name: sammy-app
-  namespace: default
 spec:
   replicas: 1
   selector:
