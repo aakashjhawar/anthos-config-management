@@ -1,0 +1,84 @@
+apiVersion: v1
+data:
+  body: |-
+    <html>
+
+      <style>
+        body {
+          background-color: #222;
+        }
+        p {
+          font-family:"Courier New";
+          font-size:xx-large;
+          color:#22f;
+          text-align:center;
+        }
+      </style>
+      <body>
+        <p>PRODUCTION</p>
+      </body>
+    </html>
+kind: ConfigMap
+metadata:
+  name: sammy-app
+  namespace: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sammy-app
+  name: sammy-app
+spec:
+  ports:
+  - name: sammy-app-http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: sammy-app
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sammy-app
+  name: sammy-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sammy-app
+  template:
+    metadata:
+      labels:
+        app: sammy-app
+    spec:
+      containers:
+      - env:
+        - name: LOG_LEVEL
+          value: DEBUG
+        image: nginx:1.17
+        name: server
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 128M
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: sammy-app
+      volumes:
+      - configMap:
+          items:
+          - key: body
+            path: index.html
+          name: sammy-app
+        name: sammy-app
