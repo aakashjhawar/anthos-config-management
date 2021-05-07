@@ -4,9 +4,5 @@ metadata:
   name: podinfo
 bases:
   - ../../bases
-commonLabels:
-  env: prod
-commonAnnotations:
-  linkerd.io/inject: enabled
 patchesStrategicMerge:
 - deployment.yaml
